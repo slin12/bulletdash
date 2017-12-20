@@ -74,8 +74,23 @@ input[type=text]:focus {
   border-bottom: 1px solid #016FB9;
 }
 
+textarea {
+  height: 100%;
+  width: 100%;
+  background-color: #F3E8EE;
+  min-height: 40rem;
+}
+
 #tracker {
   margin-top: 3%;
-  background-color: #F3E8EE;
+  background-color: #A62639;
   height: 150px;
+}
+
+#tracker-title {
+  float: left;
+}
+
+#graph {
+  background-color: white;
 }

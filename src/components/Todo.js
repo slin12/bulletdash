@@ -11,7 +11,7 @@ const Todo = (props) => {
       <h2>Todo</h2>
       <div id="tasks-container">
         {tasks()}
-        <div className="task">
+        <div className="task new-task">
           <input type="text"></input>
         </div>
       </div>
