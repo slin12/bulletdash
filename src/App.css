@@ -42,12 +42,15 @@ h2 {
 #todo {
   background-color: #016FB9;
   padding: 1% 3%;
+  display: flex;
+  flex-direction: column;
 }
 
 .task {
   background-color: #F3E8EE;
   padding: 2%;
-  margin-top: 5%;
+  margin-bottom: 2%;
+  margin-bottom: 2%;
   border-radius: 10px;
   text-align: center;
   font-size: 1.3em;
@@ -60,6 +63,16 @@ h2 {
 
 .tasks-container {
   overflow: scroll;
+}
+
+#add-task {
+  margin-top: auto;
+  border-radius: 100%;
+  width: 10%;
+  padding: 0;
+  background-color: #A62639;
+  border: none;
+  color: white;
 }
 
 input[type=text] {

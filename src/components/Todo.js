@@ -1,22 +1,39 @@
 import React from 'react';
-import TodoTask from './TodoTask'
+import TodoTask from './TodoTask';
+import { Droppable } from 'react-beautiful-dnd';
 
-const Todo = (props) => {
-  function tasks() {
-    return props.tasks.map(task => <TodoTask key={task.id} task={task}/>)
+
+class Todo extends React.Component {
+
+  tasks = () => {
+    return this.props.tasks.map(task => <TodoTask key={task.id} task={task}/>)
   }
 
-  return (
-    <div className="column column-40 column-offset-10" id="todo">
-      <h2>Todo</h2>
-      <div id="tasks-container">
-        {tasks()}
-        <div className="task new-task">
-          <input type="text"></input>
-        </div>
+  render() {
+    return (
+      <div className="column column-40 column-offset-10" id="todo">
+        <h2>Todo</h2>
+        <Droppable droppableId="tasks-container">
+          {(provided, snapshot) => (
+            <div
+              ref={provided.innerRef}
+            >
+              {this.tasks()}
+            </div>
+          )}
+
+        </Droppable>
+        <button id="add-task">
+          +
+        </button>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default Todo
+
+//new task?
+// <div className="task new-task">
+//   <input type="text"></input>
+// </div>
