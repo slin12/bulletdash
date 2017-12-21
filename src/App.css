@@ -1,3 +1,12 @@
+/*COLORS
+lt-orange: #FFA630
+dark-orange: #E4572E
+teal: #4DA1A9
+bright blue: #016FB9
+magenta: #A62639
+pale white: #4DA1A9*/
+
+/*STANDARD STYLES*/
 html, body {
   height: 100%;
   width: 100%;
@@ -9,8 +18,22 @@ body {
   overflow: hidden;
 }
 
+.container {
+  padding-top: 1%;
+}
+
+h2 {
+  font-family: "Lobster", cursive;
+  letter-spacing: 4px;
+  text-align: center;
+  color: white;
+}
+
+
+/*NAVBAR*/
+
 #navbar {
-  margin-top: 3%;
+  margin-top: 1%;
   background-color: #E4572E;
   color: #F3E8EE;
   font-family: "Lobster", cursive;
@@ -22,69 +45,63 @@ body {
   margin-top: 2%;
 }
 
-h2 {
-  font-family: "Lobster", cursive;
-  letter-spacing: 4px;
+/*LOGIN PAGE*/
+
+#title {
+  margin-top: 10%;
   text-align: center;
+  font-family: 'Lobster', cursive;
+  font-size: 6em;
   color: white;
 }
+
+#login {
+  height: 400px;
+  background-color: #E4572E;
+  width: 80%;
+  margin: 5% auto;
+  padding: 3% 2%;
+}
+
+#login form {
+  margin-top: 5%;
+}
+
+.form-button {
+  margin-top: 3%;
+  background-color: white;
+  color: #016FB9;
+  border: none;
+  transition: 0.75s all;
+}
+
+.form-button:hover {
+  background-color: #4DA1A9;
+}
+
+label.form {
+  color: white;
+}
+
+input[type="text"], input[type="password"] {
+  background-color: #016FB9;
+  border: none;
+  font-family: inherit;
+  color: white;
+  letter-spacing: 2px;
+}
+
+/*MODULES*/
 
 .module-container {
   margin-top: 3%;
 }
 
+/*NOTES*/
 #notes {
   background-color: #4DA1A9;
   height: 500px;
   padding: 1%;
-}
-
-#todo {
-  background-color: #016FB9;
-  padding: 1% 3%;
-  display: flex;
-  flex-direction: column;
-}
-
-.task {
-  background-color: #F3E8EE;
-  padding: 2%;
-  margin-bottom: 2%;
-  margin-bottom: 2%;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 1.3em;
-  box-shadow: 3px 3px 2px #025a95;
-}
-
-.task p {
-  margin-bottom: 0
-}
-
-.tasks-container {
-  overflow: scroll;
-}
-
-#add-task {
-  margin-top: auto;
-  border-radius: 100%;
-  width: 10%;
-  padding: 0;
-  background-color: #A62639;
-  border: none;
-  color: white;
-}
-
-input[type=text] {
-  border: none;
-  border-bottom: 1px solid #E4572E;
-  border-radius: 0;
-  margin-bottom: 0;
-  width: 90%;
-}
-
-input[type=text]:focus {
-  border-bottom: 1px solid #016FB9;
 }
 
 textarea {
@@ -93,6 +110,59 @@ textarea {
   background-color: #F3E8EE;
   min-height: 40rem;
 }
+
+/*TO DO*/
+
+#todo {
+  background-color: #016FB9;
+  padding: 1% 3%;
+  height: 500px;
+}
+
+.task {
+  background-color: #F3E8EE;
+  padding: 2%;
+  margin-bottom: 2%;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.3em;
+  box-shadow: 3px 3px 2px #025a95;
+}
+
+.task-delete {
+  float: left;
+  color: #A62639;
+  cursor: pointer;
+}
+
+.tasks-container {
+  height: 68%;
+  overflow-y: scroll;
+}
+
+.new-task {
+  margin-top: 5%;
+}
+
+form {
+  padding: 0;
+  margin: 0;
+}
+
+input[type=text].task {
+  border: none;
+  border-bottom: 1px solid #E4572E;
+  border-radius: 0;
+  margin-bottom: 0;
+  width: 90%;
+  font-family: inherit;
+}
+
+input[type=text]:focus.task {
+  border-bottom: 1px solid #016FB9;
+}
+
+/*TRACKER*/
 
 #tracker {
   margin-top: 3%;

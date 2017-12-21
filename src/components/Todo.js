@@ -4,9 +4,33 @@ import { Droppable } from 'react-beautiful-dnd';
 
 
 class Todo extends React.Component {
+  state = {
+    value: ""
+  }
 
   tasks = () => {
-    return this.props.tasks.map(task => <TodoTask key={task.id} task={task}/>)
+    return this.props.tasks.map(task => <TodoTask deleteTask={this.deleteTask} key={task.id} task={task}/>)
+  }
+
+  componentDidUpdate() {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+
+  handleChange = (event) => {
+    console.log(event)
+    this.setState({
+      value: event.target.value
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.setState({value: ""})
+    this.props.handleTaskSubmit(this.state.value)
+  }
+
+  deleteTask = (task) => {
+    this.props.deleteTask(task)
   }
 
   render() {
@@ -17,23 +41,23 @@ class Todo extends React.Component {
           {(provided, snapshot) => (
             <div
               ref={provided.innerRef}
+              className="tasks-container"
             >
               {this.tasks()}
+              <div ref={(el) => { this.messagesEnd = el; }}>
+              </div>
             </div>
           )}
 
         </Droppable>
-        <button id="add-task">
-          +
-        </button>
+        <div className="task new-task">
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" value={this.state.value} onChange={this.handleChange} />
+          </form>
+        </div>
       </div>
     )
   }
 }
 
 export default Todo
-
-//new task?
-// <div className="task new-task">
-//   <input type="text"></input>
-// </div>

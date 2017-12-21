@@ -6,7 +6,8 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 class ModuleContainer extends React.Component {
   state = {
-    tasks: []
+    tasks: [],
+    note: []
   }
 
   onDragStart = () => {
@@ -14,9 +15,11 @@ class ModuleContainer extends React.Component {
   }
 
   resetOrder = (tasksCopy) => {
-    return tasksCopy.map(task => {
-      return task.order = tasksCopy.indexOf(task)
+    const ordered = tasksCopy.map(task => {
+      task.order = tasksCopy.indexOf(task)
+      return task
     })
+    fetch('http://localhost:3000/tasks', {method: 'PATCH', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({tasks: ordered})})
   }
 
   onDragEnd = (result) => {
@@ -39,11 +42,51 @@ class ModuleContainer extends React.Component {
     this.fetchTasks();
   }
 
+  sortTasks = (unsorted) => {
+    return unsorted.sort((a, b) => {
+      if (a["order"] < b["order"]) {
+        return -1
+      } else if (a["order"] > b["order"]) {
+        return 1
+      } else {
+        return 0
+      }
+    })
+  }
+
+  deleteTask = (task) => {
+    fetch(`http://localhost:3000/tasks/${task.id}`, {
+      method: 'delete',
+      headers: {'Content-Type': 'application/json'}
+    })
+      .then(res => res.json())
+      .then(json => {
+        const sorted = this.sortTasks(json)
+        this.setState({tasks: sorted})
+      })
+  }
+
+  handleTaskSubmit = (value) => {
+    fetch('http://localhost:3000/tasks', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({content: value})
+    })
+      .then(res => res.json())
+      .then(json => {
+        this.setState(prevState => {
+          return {tasks: [...prevState.tasks, json]}
+        })
+      })
+  }
+
   fetchTasks = () => {
+    console.log('fetching...')
     fetch("http://localhost:3000/tasks")
       .then(res => res.json())
       .then(json => {
-        this.setState({tasks: json}
+        const ordered = this.sortTasks(json)
+        this.setState({tasks: ordered}
         )})
   }
 
@@ -53,8 +96,8 @@ class ModuleContainer extends React.Component {
       <DragDropContext onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
         <div className="module-container">
           <div className="row">
-            <Notes />
-            <Todo tasks={this.state.tasks}/>
+            <Notes note={this.state.note}/>
+            <Todo tasks={this.state.tasks} handleTaskSubmit={this.handleTaskSubmit} deleteTask={this.deleteTask}/>
           </div>
           <div className="row">
             <Tracker />
