@@ -7,10 +7,6 @@ import FormSignup from "./components/FormSignup";
 import { Route, Redirect, withRouter } from "react-router-dom";
 
 class App extends Component {
-  state = {
-    auth: { loggedIn: false }
-  };
-
   login = params => {
     AuthAdapter.login(params).then(user => {
       if (!user.error) {
@@ -25,7 +21,6 @@ class App extends Component {
 
   logout = () => {
     localStorage.clear();
-    this.setState({ auth: { loggedIn: false } });
     this.props.history.push("/login");
   };
 
@@ -36,25 +31,24 @@ class App extends Component {
           exact
           path="/"
           render={() => {
-            return this.state.auth.isLoggedIn ? (
+            return localStorage.getItem("jwt") ? (
               <Redirect to="/dashboard" />
             ) : (
               <Redirect to="/login" />
             );
           }}
         />
-        <Route path="/login" render={() => <FormLogin login={this.login} />} />
+        <Route
+          path="/login"
+          render={router => <FormLogin router={router} login={this.login} />}
+        />
         <Route path="/signup" component={FormSignup} />
         <Route
           path="/dashboard"
           render={router => {
             return (
               <div className="container">
-                <ModuleContainer
-                  router={router}
-                  user={this.state.auth.user}
-                  logout={this.logout}
-                />
+                <ModuleContainer router={router} logout={this.logout} />
               </div>
             );
           }}

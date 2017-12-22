@@ -9,6 +9,13 @@ class FormSignup extends React.Component {
     firstNameValue: ""
   };
 
+  componentDidMount() {
+    if (localStorage.getItem("jwt")) {
+      this.props.history.push("/dashboard");
+      console.log(this.props);
+    }
+  }
+
   handleChange = (event, key) => {
     this.setState({
       [key]: event.target.value

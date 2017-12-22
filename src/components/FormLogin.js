@@ -7,6 +7,12 @@ class FormLogin extends React.Component {
     password: ""
   };
 
+  componentDidMount() {
+    if (localStorage.getItem("jwt")) {
+      this.props.router.history.push("/dashboard");
+    }
+  }
+
   handleChange = (value, key) => {
     this.setState({
       [key]: value
