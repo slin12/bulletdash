@@ -35,6 +35,7 @@ h2 {
 #navbar {
   margin-top: 1%;
   background-color: #e4572e;
+  height: 100px;
   color: #f3e8ee;
   font-family: "Lobster", cursive;
 }
@@ -43,6 +44,24 @@ h2 {
   letter-spacing: 4px;
   text-align: center;
   margin-top: 2%;
+  display: inline;
+  line-height: 100px;
+}
+
+#logout-button {
+  float: right;
+  display: inline-block;
+  margin-top: 30px;
+  border-radius: 10px;
+  background-color: white;
+  border: none;
+  color: #4da1a9;
+  transition: 0.5s all;
+}
+
+#logout-button:hover {
+  background-color: #4da1a9;
+  color: white;
 }
 
 /*LOGIN PAGE*/

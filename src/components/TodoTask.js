@@ -6,7 +6,6 @@ const Task = props => {
     <div>
       <Draggable draggableId={"draggable-" + props.task.id}>
         {(provided, snapshot) => {
-          console.log(provided);
           return (
             <div>
               <div

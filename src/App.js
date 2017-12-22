@@ -4,12 +4,7 @@ import ModuleContainer from "./components/ModuleContainer.js";
 import FormLogin from "./components/FormLogin";
 import AuthAdapter from "./api/AuthAdapter";
 import FormSignup from "./components/FormSignup";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  withRouter
-} from "react-router-dom";
+import { Route, Redirect, withRouter } from "react-router-dom";
 
 class App extends Component {
   state = {
@@ -26,6 +21,12 @@ class App extends Component {
         this.props.history.push("/dashboard");
       }
     });
+  };
+
+  logout = () => {
+    localStorage.clear();
+    this.setState({ auth: { loggedIn: false } });
+    this.props.history.push("/login");
   };
 
   render() {
@@ -49,7 +50,11 @@ class App extends Component {
           render={router => {
             return (
               <div className="container">
-                <ModuleContainer router={router} user={this.state.auth.user} />
+                <ModuleContainer
+                  router={router}
+                  user={this.state.auth.user}
+                  logout={this.logout}
+                />
               </div>
             );
           }}

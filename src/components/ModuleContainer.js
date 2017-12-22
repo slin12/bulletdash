@@ -90,6 +90,9 @@ class ModuleContainer extends React.Component {
         <div className="row" id="navbar">
           <div className="column">
             <h1>Hello, {this.state.name}</h1>
+            <button id="logout-button" onClick={this.props.logout}>
+              Logout
+            </button>
           </div>
         </div>
         <DragDropContext
