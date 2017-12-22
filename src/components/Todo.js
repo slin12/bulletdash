@@ -1,37 +1,38 @@
-import React from 'react';
-import TodoTask from './TodoTask';
-import { Droppable } from 'react-beautiful-dnd';
-
+import React from "react";
+import TodoTask from "./TodoTask";
+import { Droppable } from "react-beautiful-dnd";
 
 class Todo extends React.Component {
   state = {
     value: ""
-  }
+  };
 
   tasks = () => {
-    return this.props.tasks.map(task => <TodoTask deleteTask={this.deleteTask} key={task.id} task={task}/>)
-  }
+    return this.props.tasks.map(task => (
+      <TodoTask deleteTask={this.deleteTask} key={task.id} task={task} />
+    ));
+  };
 
   componentDidUpdate() {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
 
-  handleChange = (event) => {
-    console.log(event)
+  handleChange = event => {
+    console.log(event);
     this.setState({
       value: event.target.value
-    })
-  }
+    });
+  };
 
-  handleSubmit = (event) => {
-    event.preventDefault()
-    this.setState({value: ""})
-    this.props.handleTaskSubmit(this.state.value)
-  }
+  handleSubmit = event => {
+    event.preventDefault();
+    this.setState({ value: "" });
+    this.props.handleTaskSubmit(this.state.value);
+  };
 
-  deleteTask = (task) => {
-    this.props.deleteTask(task)
-  }
+  deleteTask = task => {
+    this.props.deleteTask(task);
+  };
 
   render() {
     return (
@@ -39,25 +40,28 @@ class Todo extends React.Component {
         <h2>Todo</h2>
         <Droppable droppableId="tasks-container">
           {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              className="tasks-container"
-            >
+            <div ref={provided.innerRef} className="tasks-container">
               {this.tasks()}
-              <div ref={(el) => { this.messagesEnd = el; }}>
-              </div>
+              <div
+                ref={el => {
+                  this.messagesEnd = el;
+                }}
+              />
             </div>
           )}
-
         </Droppable>
         <div className="task new-task">
           <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
+            <input
+              type="text"
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
           </form>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Todo
+export default Todo;

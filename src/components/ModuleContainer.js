@@ -3,9 +3,11 @@ import Notes from "./Notes";
 import Todo from "./Todo";
 import Tracker from "./Tracker";
 import { DragDropContext } from "react-beautiful-dnd";
+import AuthAdapter from "../api/AuthAdapter";
 
 class ModuleContainer extends React.Component {
   state = {
+    name: "",
     tasks: [],
     note: []
   };
@@ -19,11 +21,7 @@ class ModuleContainer extends React.Component {
       task.order = tasksCopy.indexOf(task);
       return task;
     });
-    fetch("http://localhost:3000/tasks", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tasks: ordered })
-    });
+    AuthAdapter.updateTasks(ordered);
   };
 
   onDragEnd = result => {
@@ -43,7 +41,7 @@ class ModuleContainer extends React.Component {
   };
 
   componentDidMount() {
-    if (!localStorage.getItem("token")) {
+    if (!localStorage.getItem("jwt")) {
       this.props.router.history.push("/login");
     } else {
       this.fetchUserInfo();
@@ -63,67 +61,56 @@ class ModuleContainer extends React.Component {
   };
 
   deleteTask = task => {
-    fetch(`http://localhost:3000/tasks/${task.id}`, {
-      method: "delete",
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(res => res.json())
-      .then(json => {
-        const sorted = this.sortTasks(json);
-        this.setState({ tasks: sorted });
-      });
+    AuthAdapter.deleteTask(task.id).then(json => {
+      const sorted = this.sortTasks(json);
+      this.setState({ tasks: sorted });
+    });
   };
 
   handleTaskSubmit = value => {
-    fetch("http://localhost:3000/tasks", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: value })
-    })
-      .then(res => res.json())
-      .then(json => {
-        this.setState(prevState => {
-          return { tasks: [...prevState.tasks, json] };
-        });
+    AuthAdapter.submitTask(value).then(json => {
+      this.setState(prevState => {
+        return { tasks: [...prevState.tasks, json] };
       });
+    });
   };
 
   fetchUserInfo = () => {
-    fetch("http://localhost:3000/users", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token")
-      }
-    })
-      .then(res => res.json())
-      .then(json => {
-        const ordered = this.sortTasks(json.tasks);
-        console.log("ordered", json);
-        this.setState({ tasks: ordered });
-      });
+    AuthAdapter.userModules().then(json => {
+      const ordered = this.sortTasks(json.tasks);
+      console.log(json);
+      this.setState({ tasks: ordered, name: json.name });
+    });
   };
 
   render() {
     console.log(this.props);
     return (
-      <DragDropContext
-        onDragStart={this.onDragStart}
-        onDragEnd={this.onDragEnd}
-      >
-        <div className="module-container">
-          <div className="row">
-            <Notes note={this.state.note} />
-            <Todo
-              tasks={this.state.tasks}
-              handleTaskSubmit={this.handleTaskSubmit}
-              deleteTask={this.deleteTask}
-            />
-          </div>
-          <div className="row">
-            <Tracker />
+      <div>
+        <div className="row" id="navbar">
+          <div className="column">
+            <h1>Hello, {this.state.name}</h1>
           </div>
         </div>
-      </DragDropContext>
+        <DragDropContext
+          onDragStart={this.onDragStart}
+          onDragEnd={this.onDragEnd}
+        >
+          <div className="module-container">
+            <div className="row">
+              <Notes note={this.state.note} />
+              <Todo
+                tasks={this.state.tasks}
+                handleTaskSubmit={this.handleTaskSubmit}
+                deleteTask={this.deleteTask}
+              />
+            </div>
+            <div className="row">
+              <Tracker />
+            </div>
+          </div>
+        </DragDropContext>
+      </div>
     );
   }
 }
