@@ -1,23 +1,62 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
-const FormLogin = () => {
-  return (
-    <div className="container">
-      <h1 id="title">bulletdash</h1>
-      <div id="login">
-        <h2>login</h2>
-        <form>
-          <fieldset>
-            <label className="form" for="nameField">Name</label>
-            <input type="text" id="nameField" />
-            <label className="form" for="password">Password</label>
-            <input type="password" id="password" />
-            <button className="form-button" type="submit">Login</button>
-          </fieldset>
-        </form>
+class FormLogin extends React.Component {
+  state = {
+    username: "",
+    password: ""
+  };
+
+  handleChange = (value, key) => {
+    this.setState({
+      [key]: value
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.login(this.state);
+  };
+
+  render() {
+    return (
+      <div className="container">
+        <h1 id="title">bulletdash</h1>
+        <div id="login">
+          <h2>login</h2>
+          <form onSubmit={this.handleSubmit}>
+            <fieldset>
+              <label className="form" htmlFor="nameField">
+                Username
+              </label>
+              <input
+                type="text"
+                id="nameField"
+                value={this.state.username}
+                onChange={e => this.handleChange(e.target.value, "username")}
+              />
+              <label className="form" htmlFor="password">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={this.state.password}
+                onChange={e => this.handleChange(e.target.value, "password")}
+              />
+              <Link to="/signup">
+                <small>Not Signed Up?</small>
+              </Link>
+              <br />
+              <button className="form-button" type="submit">
+                Login
+              </button>
+            </fieldset>
+          </form>
+        </div>
       </div>
-    </div>
-  )
+    );
+  }
 }
 
-export default FormLogin
+export default FormLogin;
