@@ -30,6 +30,18 @@ h2 {
   color: white;
 }
 
+#loading {
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 40%;
+  font-family: "Lobster", cursive;
+  color: white;
+}
+
+#loading h1 {
+  font-size: 10em;
+}
+
 /*NAVBAR*/
 
 #navbar {
@@ -42,7 +54,7 @@ h2 {
 
 #navbar h1 {
   letter-spacing: 4px;
-  text-align: center;
+  margin-left: 4%;
   margin-top: 2%;
   display: inline;
   line-height: 100px;
@@ -212,18 +224,70 @@ form {
   border-bottom: 1px solid #016fb9;
 }
 
-/*TRACKER*/
+/*TRACKER BUTTON*/
 
 #tracker {
-  margin-top: 3%;
-  background-color: #a62639;
+  /*background-color: #a62639;*/
   height: 150px;
+  text-align: center;
+}
+
+#tracker-title button {
+  margin-top: 5%;
+  height: 75px;
+  width: 275px;
+  background-color: #a62639;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 0.4em;
+  transition: 0.5s all;
+}
+
+#tracker-title button:hover {
+  background-color: white;
+  color: #a62639;
+}
+
+/*TRACKER MODAL*/
+#tracker-modal {
+  background-color: rgba(255, 255, 255, 0.85);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+#tracker-container {
+  height: 80%;
+  width: 70%;
+  background-color: #a62639;
+  margin: 5% auto;
+  text-align: center;
+  padding: 1% 2%;
 }
 
 #tracker-title {
-  float: left;
+  color: white;
+  font-family: "Lobster", cursive;
+  letter-spacing: 4px;
+  font-size: 2.9em;
 }
 
-#graph {
+#tracker-add {
+  margin-top: 1%;
+  height: 10%;
   background-color: white;
+}
+
+#tracker-close {
+  font-family: "Quattrocento Sans", sans-serif;
+  float: right;
+  color: white;
+  font-size: 1.35em;
+}
+
+canvas {
+  background-color: white;
+  padding: 2%;
 }

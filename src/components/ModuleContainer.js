@@ -1,7 +1,7 @@
 import React from "react";
 import Notes from "./Notes";
 import Todo from "./Todo";
-import Tracker from "./Tracker";
+import TrackerButton from "./TrackerButton";
 import { DragDropContext } from "react-beautiful-dnd";
 import AuthAdapter from "../api/AuthAdapter";
 
@@ -9,7 +9,7 @@ class ModuleContainer extends React.Component {
   state = {
     name: "",
     tasks: [],
-    note: []
+    noteValue: ""
   };
 
   onDragStart = () => {
@@ -77,15 +77,27 @@ class ModuleContainer extends React.Component {
 
   fetchUserInfo = () => {
     AuthAdapter.userModules().then(json => {
-      const ordered = this.sortTasks(json.tasks);
-      console.log(json);
-      this.setState({ tasks: ordered, name: json.name });
+      if (json.message) {
+        localStorage.clear();
+        this.props.router.history.push("/login");
+      } else {
+        console.log(json);
+        const ordered = this.sortTasks(json.tasks);
+        this.setState({
+          tasks: ordered,
+          name: json.name,
+          noteValue: json.notes[0].content
+        });
+      }
     });
   };
 
   render() {
-    console.log(this.props);
-    return (
+    return this.state.name === "" ? (
+      <div id="loading">
+        <h1>loading...</h1>
+      </div>
+    ) : (
       <div>
         <div className="row" id="navbar">
           <div className="column">
@@ -101,7 +113,7 @@ class ModuleContainer extends React.Component {
         >
           <div className="module-container">
             <div className="row">
-              <Notes note={this.state.note} />
+              <Notes noteValue={this.state.noteValue} />
               <Todo
                 tasks={this.state.tasks}
                 handleTaskSubmit={this.handleTaskSubmit}
@@ -109,7 +121,7 @@ class ModuleContainer extends React.Component {
               />
             </div>
             <div className="row">
-              <Tracker />
+              <TrackerButton handleOpen={this.props.handleOpen} />
             </div>
           </div>
         </DragDropContext>

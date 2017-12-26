@@ -45,6 +45,14 @@ class AuthAdapter {
       headers: headers
     }).then(res => res.json());
   }
+
+  static submitNote(value) {
+    return fetch(`${url}/notes`, {
+      method: "PATCH",
+      headers: headers,
+      body: JSON.stringify({ content: value })
+    });
+  }
 }
 
 export default AuthAdapter;
