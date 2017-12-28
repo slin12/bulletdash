@@ -16,6 +16,7 @@ class TrackerModal extends React.Component {
   }
 
   setData = json => {
+    console.log(json);
     const steps = json.map(t => t.steps);
     const dates = json.map(t => moment(t.date_format).format("MMM Do"));
     this.setState({
@@ -57,6 +58,10 @@ class TrackerModal extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     AuthAdapter.submitTracker(this.state).then(json => this.setData(json));
+    this.setState({
+      dateValue: "",
+      stepValue: ""
+    });
   };
 
   render() {
