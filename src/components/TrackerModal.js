@@ -30,11 +30,11 @@ class TrackerModal extends React.Component {
       datasets: [
         {
           label: "Steps",
-          backgroundColor: "rgba(255,99,132,0.2)",
-          borderColor: "rgba(255,99,132,1)",
+          backgroundColor: "rgba(77, 162, 170, 0.5)",
+          borderColor: "#016FB9",
           borderWidth: 1,
-          hoverBackgroundColor: "rgba(255,99,132,0.4)",
-          hoverBorderColor: "rgba(255,99,132,1)",
+          hoverBackgroundColor: "rgba(255, 166, 48, 0.5)",
+          hoverBorderColor: "#E4572E",
           data: this.state.data
         }
       ]
