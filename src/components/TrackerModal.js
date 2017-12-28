@@ -12,22 +12,21 @@ class TrackerModal extends React.Component {
   };
 
   componentDidMount() {
-    AuthAdapter.fetchTrackerData().then(console.log);
+    AuthAdapter.fetchTrackerData().then(json => this.setData(json));
   }
+
+  setData = json => {
+    const steps = json.map(t => t.steps);
+    const dates = json.map(t => moment(t.date_format).format("MMM Do"));
+    this.setState({
+      dates: dates,
+      data: steps
+    });
+  };
 
   data = () => {
     const data = {
-      labels: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-        "Monday2",
-        "Tuesday2"
-      ],
+      labels: this.state.dates,
       datasets: [
         {
           label: "Steps",
@@ -36,7 +35,7 @@ class TrackerModal extends React.Component {
           borderWidth: 1,
           hoverBackgroundColor: "rgba(255,99,132,0.4)",
           hoverBorderColor: "rgba(255,99,132,1)",
-          data: [65, 59, 80, 81, 56, 55, 100]
+          data: this.state.data
         }
       ]
     };
@@ -57,7 +56,7 @@ class TrackerModal extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    AuthAdapter.submitTracker(this.state);
+    AuthAdapter.submitTracker(this.state).then(json => this.setData(json));
   };
 
   render() {
