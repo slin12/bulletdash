@@ -53,6 +53,20 @@ class AuthAdapter {
       body: JSON.stringify({ content: value })
     });
   }
+
+  static submitTracker(args) {
+    return fetch(`${url}/trackers`, {
+      method: "post",
+      headers: headers,
+      body: JSON.stringify(args)
+    }).then(res => res.json());
+  }
+
+  static fetchTrackerData() {
+    return fetch(`${url}/trackers`, {
+      headers: headers
+    }).then(res => res.json());
+  }
 }
 
 export default AuthAdapter;

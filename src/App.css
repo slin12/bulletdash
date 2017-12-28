@@ -280,14 +280,58 @@ form {
   background-color: white;
 }
 
-#tracker-close {
+#tracker-close a {
   font-family: "Quattrocento Sans", sans-serif;
   float: right;
   color: white;
   font-size: 1.35em;
 }
 
+#tracker-close a:hover {
+  cursor: pointer;
+}
+
 canvas {
   background-color: white;
   padding: 2%;
+}
+
+#tracker-add input {
+  margin-top: 1%;
+  margin-left: 2%;
+}
+
+#date-value,
+#steps-value {
+  width: 30%;
+}
+
+#date-value {
+  background-color: #4da1a9;
+  border: none;
+  height: 3.8rem;
+  border-radius: 0.4rem;
+  color: white;
+  font-family: inherit;
+  letter-spacing: 2px;
+  padding-left: 2%;
+}
+
+#steps-value::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#tracker-submit {
+  width: 10%;
+  padding-left: 2%;
+  font-family: inherit;
+  letter-spacing: 2px;
+  font-size: 0.9em;
+  background-color: #ffa630;
+  border: none;
+  transition: 0.5s all;
+}
+
+#tracker-submit:hover {
+  background-color: #e4572e;
 }
