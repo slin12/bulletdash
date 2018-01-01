@@ -29,7 +29,12 @@ class FormSignup extends React.Component {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(this.state)
-    });
+    })
+      .then(res => res.json())
+      .then(json => {
+        localStorage.setItem("jwt", json.jwt);
+        this.props.history.push("/dashboard");
+      });
   };
 
   render() {

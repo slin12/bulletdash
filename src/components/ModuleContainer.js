@@ -83,11 +83,20 @@ class ModuleContainer extends React.Component {
       } else {
         console.log(json);
         const ordered = this.sortTasks(json.tasks);
-        this.setState({
-          tasks: ordered,
-          name: json.name,
-          noteValue: json.notes[0].content
-        });
+        this.props.setTheme(json.theme);
+
+        if (json.notes[0]) {
+          this.setState({
+            tasks: ordered,
+            name: json.name,
+            noteValue: json.notes[0].content
+          });
+        } else {
+          this.setState({
+            tasks: ordered,
+            name: json.name
+          });
+        }
       }
     });
   };
@@ -99,7 +108,15 @@ class ModuleContainer extends React.Component {
       </div>
     ) : (
       <div>
-        <div className="row" id="navbar">
+        <div
+          className="row"
+          id="navbar"
+          style={
+            this.props.theme === "colorful"
+              ? { backgroundColor: "#e4572e" }
+              : { backgroundColor: "#a0a0a0" }
+          }
+        >
           <div className="column">
             <h1>Hello, {this.state.name}</h1>
             <button id="logout-button" onClick={this.props.logout}>
@@ -113,18 +130,28 @@ class ModuleContainer extends React.Component {
         >
           <div className="module-container">
             <div className="row">
-              <Notes noteValue={this.state.noteValue} />
+              <Notes
+                noteValue={this.state.noteValue}
+                theme={this.props.theme}
+              />
               <Todo
                 tasks={this.state.tasks}
                 handleTaskSubmit={this.handleTaskSubmit}
                 deleteTask={this.deleteTask}
+                theme={this.props.theme}
               />
             </div>
             <div className="row">
-              <TrackerButton handleOpen={this.props.handleOpen} />
+              <TrackerButton
+                handleOpen={this.props.handleOpen}
+                theme={this.props.theme}
+              />
             </div>
           </div>
         </DragDropContext>
+        <button id="change-theme" onClick={this.props.handleThemeChange}>
+          Change Theme
+        </button>
       </div>
     );
   }

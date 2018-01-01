@@ -200,6 +200,10 @@ textarea {
   overflow-y: scroll;
 }
 
+.tasks-container::-webkit-scrollbar {
+  background-color: rgba(255, 255, 255, 0);
+}
+
 .new-task {
   margin-top: 5%;
 }
@@ -334,4 +338,19 @@ canvas {
 
 #tracker-submit:hover {
   background-color: #e4572e;
+}
+
+/* CHANGE THEME BUTTON  */
+
+#change-theme {
+  background-color: white;
+  color: #4da1a9;
+  border: none;
+  border-radius: 10px;
+  transition: 0.5s all;
+}
+
+#change-theme:hover {
+  background-color: #4da1a9;
+  color: white;
 }

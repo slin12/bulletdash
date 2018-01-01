@@ -9,7 +9,8 @@ import { Route, Redirect, withRouter } from "react-router-dom";
 
 class App extends Component {
   state = {
-    tracker: false
+    tracker: false,
+    theme: ""
   };
 
   login = params => {
@@ -42,6 +43,18 @@ class App extends Component {
     });
   };
 
+  setTheme = theme => {
+    this.setState({
+      theme
+    });
+  };
+
+  handleThemeChange = () => {
+    AuthAdapter.changeTheme().then(json => {
+      this.setState({ theme: json.theme });
+    });
+  };
+
   render() {
     return (
       <div>
@@ -67,13 +80,19 @@ class App extends Component {
             return (
               <div>
                 {this.state.tracker ? (
-                  <TrackerModal handleClose={this.handleClose} />
+                  <TrackerModal
+                    handleClose={this.handleClose}
+                    theme={this.state.theme}
+                  />
                 ) : null}
                 <div className="container">
                   <ModuleContainer
                     router={router}
                     logout={this.logout}
                     handleOpen={this.handleOpen}
+                    setTheme={this.setTheme}
+                    theme={this.state.theme}
+                    handleThemeChange={this.handleThemeChange}
                   />
                 </div>
               </div>

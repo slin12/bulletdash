@@ -67,6 +67,12 @@ class AuthAdapter {
       headers: headers
     }).then(res => res.json());
   }
+
+  static changeTheme() {
+    return fetch(`${url}/users/theme`, {
+      headers: headers
+    }).then(res => res.json());
+  }
 }
 
 export default AuthAdapter;

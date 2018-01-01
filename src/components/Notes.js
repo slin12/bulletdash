@@ -21,7 +21,15 @@ class Notes extends React.Component {
 
   render() {
     return (
-      <div className="column column-50" id="notes">
+      <div
+        className="column column-50"
+        id="notes"
+        style={
+          this.props.theme === "colorful"
+            ? { backgroundColor: "#4da1a9" }
+            : { backgroundColor: "#777777" }
+        }
+      >
         <h2>Notes</h2>
         <div className="notes-container">
           <textarea

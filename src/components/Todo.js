@@ -36,7 +36,15 @@ class Todo extends React.Component {
 
   render() {
     return (
-      <div className="column column-40 column-offset-10" id="todo">
+      <div
+        className="column column-40 column-offset-10"
+        id="todo"
+        style={
+          this.props.theme === "colorful"
+            ? { backgroundColor: "#016fb9" }
+            : { backgroundColor: "#646566" }
+        }
+      >
         <h2>Todo</h2>
         <Droppable droppableId="tasks-container">
           {(provided, snapshot) => (
