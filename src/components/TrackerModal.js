@@ -116,6 +116,7 @@ class TrackerModal extends React.Component {
                 placeholder="No. of Steps"
                 value={this.state.stepValue}
                 onChange={this.handleStepChange}
+                autocomplete="off"
                 style={
                   this.props.theme === "colorful"
                     ? { backgroundColor: "#016FB9" }

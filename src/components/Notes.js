@@ -15,7 +15,7 @@ class Notes extends React.Component {
     const typingTimeOut = setTimeout(() => {
       AuthAdapter.submitNote(this.state.value);
       console.log("timed out!");
-    }, 5000);
+    }, 3000);
     this.setState({ timeout: typingTimeOut });
   };
 
