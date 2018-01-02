@@ -46,6 +46,7 @@ class FormLogin extends React.Component {
                 <input
                   type="text"
                   id="nameField"
+                  autocomplete="off"
                   value={this.state.username}
                   onChange={e => this.handleChange(e.target.value, "username")}
                 />

@@ -26,7 +26,7 @@ class FormSignup extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     console.log(this.state);
-    fetch("http://localhost:3000/users", {
+    fetch("https://bullet-dash.herokuapp.com/users", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(this.state)
@@ -60,6 +60,7 @@ class FormSignup extends React.Component {
                   type="text"
                   id="nameField"
                   value={this.state.usernameValue}
+                  autocomplete="off"
                   onChange={e => this.handleChange(e, "usernameValue")}
                 />
                 <label className="form" htmlFor="password">
@@ -94,6 +95,7 @@ class FormSignup extends React.Component {
                   id="firstName"
                   value={this.state.firstNameValue}
                   onChange={e => this.handleChange(e, "firstNameValue")}
+                  autocomplete="off"
                 />
                 <Link to="/login">
                   <small>Already Signed Up?</small>
