@@ -3,7 +3,7 @@ import { Draggable } from "react-beautiful-dnd";
 
 const Task = props => {
   return (
-    <div>
+    <div key={"task" + props.task.id}>
       <Draggable draggableId={"draggable-" + props.task.id}>
         {(provided, snapshot) => {
           return (

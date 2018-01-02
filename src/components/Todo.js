@@ -1,6 +1,7 @@
 import React from "react";
 import TodoTask from "./TodoTask";
 import { Droppable } from "react-beautiful-dnd";
+import { CSSTransitionGroup } from "react-transition-group";
 
 class Todo extends React.Component {
   state = {
@@ -49,7 +50,13 @@ class Todo extends React.Component {
         <Droppable droppableId="tasks-container">
           {(provided, snapshot) => (
             <div ref={provided.innerRef} className="tasks-container">
-              {this.tasks()}
+              <CSSTransitionGroup
+                transitionName="task"
+                transitionEnterTimeout={300}
+                transitionLeaveTimeout={300}
+              >
+                {this.tasks()}
+              </CSSTransitionGroup>
               <div
                 ref={el => {
                   this.messagesEnd = el;

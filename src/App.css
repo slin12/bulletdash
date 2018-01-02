@@ -354,3 +354,22 @@ canvas {
   background-color: #4da1a9;
   color: white;
 }
+
+/* ANIMATIONS  */
+.task-enter {
+  opacity: 0.01;
+}
+
+.task-enter.task-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.task-leave {
+  opacity: 1;
+}
+
+.task-leave.task-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-out;
+}
