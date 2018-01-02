@@ -373,3 +373,12 @@ canvas {
   opacity: 0.01;
   transition: opacity 300ms ease-out;
 }
+
+.login-appear {
+  opacity: 0.01;
+}
+
+.login-appear.login-appear-active {
+  opacity: 1;
+  transition: opacity 0.6s ease-in;
+}
