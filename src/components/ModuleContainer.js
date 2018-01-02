@@ -4,6 +4,7 @@ import Todo from "./Todo";
 import TrackerButton from "./TrackerButton";
 import { DragDropContext } from "react-beautiful-dnd";
 import AuthAdapter from "../api/AuthAdapter";
+import { CSSTransitionGroup } from "react-transition-group";
 
 class ModuleContainer extends React.Component {
   state = {
@@ -103,55 +104,71 @@ class ModuleContainer extends React.Component {
 
   render() {
     return this.state.name === "" ? (
-      <div id="loading">
-        <h1>loading...</h1>
-      </div>
+      <CSSTransitionGroup
+        transitionName="loading"
+        transitionAppear={true}
+        transitionAppearTimeout={600}
+        transitionEnter={false}
+        transitionLeave={false}
+      >
+        <div id="loading">
+          <h1>loading...</h1>
+        </div>
+      </CSSTransitionGroup>
     ) : (
       <div>
-        <div
-          className="row"
-          id="navbar"
-          style={
-            this.props.theme === "colorful"
-              ? { backgroundColor: "#e4572e" }
-              : { backgroundColor: "#a0a0a0" }
-          }
+        <CSSTransitionGroup
+          transitionName="loading"
+          transitionAppear={true}
+          transitionAppearTimeout={600}
+          transitionEnter={false}
+          transitionLeave={false}
         >
-          <div className="column">
-            <h1>Hello, {this.state.name}</h1>
-            <button id="logout-button" onClick={this.props.logout}>
-              Logout
-            </button>
-          </div>
-        </div>
-        <DragDropContext
-          onDragStart={this.onDragStart}
-          onDragEnd={this.onDragEnd}
-        >
-          <div className="module-container">
-            <div className="row">
-              <Notes
-                noteValue={this.state.noteValue}
-                theme={this.props.theme}
-              />
-              <Todo
-                tasks={this.state.tasks}
-                handleTaskSubmit={this.handleTaskSubmit}
-                deleteTask={this.deleteTask}
-                theme={this.props.theme}
-              />
-            </div>
-            <div className="row">
-              <TrackerButton
-                handleOpen={this.props.handleOpen}
-                theme={this.props.theme}
-              />
+          <div
+            className="row"
+            id="navbar"
+            style={
+              this.props.theme === "colorful"
+                ? { backgroundColor: "#e4572e" }
+                : { backgroundColor: "#a0a0a0" }
+            }
+          >
+            <div className="column">
+              <h1>Hello, {this.state.name}</h1>
+              <button id="logout-button" onClick={this.props.logout}>
+                Logout
+              </button>
             </div>
           </div>
-        </DragDropContext>
-        <button id="change-theme" onClick={this.props.handleThemeChange}>
-          Change Theme
-        </button>
+          <DragDropContext
+            onDragStart={this.onDragStart}
+            onDragEnd={this.onDragEnd}
+          >
+            <div className="module-container">
+              <div className="row">
+                <Notes
+                  noteValue={this.state.noteValue}
+                  theme={this.props.theme}
+                />
+                <Todo
+                  tasks={this.state.tasks}
+                  handleTaskSubmit={this.handleTaskSubmit}
+                  deleteTask={this.deleteTask}
+                  theme={this.props.theme}
+                />
+              </div>
+              <div className="row">
+                <TrackerButton
+                  handleOpen={this.props.handleOpen}
+                  theme={this.props.theme}
+                />
+              </div>
+            </div>
+          </DragDropContext>
+          <button id="change-theme" onClick={this.props.handleThemeChange}>
+            Change Theme
+          </button>
+        </CSSTransitionGroup>
       </div>
     );
   }

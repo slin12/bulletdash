@@ -1,4 +1,4 @@
-const url = "http://localhost:3000";
+const url = "https://bullet-dash.herokuapp.com";
 
 const getHeaders = () => {
   return {
